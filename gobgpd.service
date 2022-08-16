@@ -1,0 +1,14 @@
+[Unit]
+Description=gobgpd
+Documentation=https://github.com/osrg/gobgp
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/gobgpd -f /etc/gobgpd.yml
+Restart=on-failure
+WorkingDirectory=
+
+[Install]
+WantedBy=multi-user.target
+

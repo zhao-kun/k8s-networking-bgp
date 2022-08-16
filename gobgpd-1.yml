@@ -1,0 +1,15 @@
+global:
+  config:
+    as: 65001
+    router-id: 172.18.8.101
+neighbors:
+  - config:
+      neighbor-address: 172.18.8.102
+      peer-as: 65001
+zebra:
+  config:
+    enabled: true
+    url: 'unix:/var/run/quagga/zserv.api'
+    redistribute-route-type-list:
+      - connect
+    version: 6
