@@ -71,12 +71,15 @@ From each node, the IP address can ping successfully, but we can't ping `POD2` f
 Advertise rule which routes traffic to pod1 from the `bgp-1`
 
 ```bash
-vagrant ssh bgp-1 -- gobgp global rib add 10.233.1.0/24
+vagrant ssh bgp-1 -- gobgp global rib add 10.233.1.10/32
+vagrant ssh bgp-1 -- gobgp global rib add 10.233.1.0/24 community blackhole
 ```
 
 Advertise rule which routes traffic to pod1 from the `bgp-2`
 ```bash
-vagrant ssh bgp-2 -- gobgp global rib add 10.233.2.0/24
+vagrant ssh bgp-2 -- gobgp global rib add 10.233.2.10/32
+vagrant ssh bgp-2 -- gobgp global rib add 10.233.2.0/24 community blackhole
+
 ```
 
 6. Checking the rule is applied on the peer node
@@ -87,7 +90,7 @@ vagrant ssh bgp-1 -- ip route
 A new router rule by the zebra can be gotten:
 
 ```
-10.233.2.0/24 via 172.18.8.102 dev eth1 proto zebra metric 20
+10.233.2.10/24 via 172.18.8.102 dev eth1 proto zebra metric 20
 ```
 
 ```bash
