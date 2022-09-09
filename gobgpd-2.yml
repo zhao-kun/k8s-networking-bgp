@@ -1,35 +1,12 @@
 global:
   config:
-    as: 65002
+    as: 65001
     router-id: 172.18.8.102
-  apply-policy:
-    config:
-      import-policy-list:
-      - zebra-import-my-prefixes
-      default-import-policy: accept-route
 
 neighbors:
   - config:
       neighbor-address: 172.18.8.101
       peer-as: 65001
-
-defined-sets:
-  prefix-sets:
-  - prefix-set-name: my-prefixes
-    prefix-list:
-    - ip-prefix: 10.233.0.0/16
-
-policy-definitions:
-  - name: zebra-import-my-prefixes
-    statements:
-    - conditions:
-        bgp-conditions:
-          route-type: local
-        match-prefix-set:
-          prefix-set: my-prefixes
-          match-set-options: invert
-      actions:
-        route-disposition: reject-route
 
 zebra:
   config:
@@ -37,4 +14,4 @@ zebra:
     url: 'unix:/var/run/quagga/zserv.api'
     redistribute-route-type-list:
       - static
-    version: 2
+    version: 6
